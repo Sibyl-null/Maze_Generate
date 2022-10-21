@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 992632283}
   - component: {fileID: 992632282}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Maze
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -329,9 +329,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _xLen: 10
-  _yLen: 10
-  _xStart: 0
-  _yStart: 0
+  _yLen: 6
+  _xStart: 2
+  _yStart: 3
   _pos: {fileID: 992632283}
 --- !u!4 &992632283
 Transform:
