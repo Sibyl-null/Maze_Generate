@@ -1,7 +1,10 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
+
+public enum GenerateType
+{
+     Stack, HurtAndKill
+}
 
 public class MazeGenerator : MonoBehaviour
 {
@@ -9,12 +12,24 @@ public class MazeGenerator : MonoBehaviour
      [SerializeField] private int _yLen;    //列数
      [SerializeField] private int _xStart, _yStart;
      [SerializeField] private Transform _pos;   //左上角的位置
+     [SerializeField] private GenerateType _generateType;
 
      private Cell[,] _cells;
      
      private void Start()
      {
-          _cells = MazeAlgorithm.StackGenerate(_xLen, _yLen, _xStart, _yStart);
+          switch (_generateType)
+          {
+               case GenerateType.Stack:
+                    _cells = MazeAlgorithm.StackGenerate(_xLen, _yLen, _xStart, _yStart);
+                    break;
+               case GenerateType.HurtAndKill:
+                    _cells = MazeAlgorithm.HurtAndKill(_xLen, _yLen, _xStart, _yStart);
+                    break;
+               default:
+                    Debug.LogWarning("Warn Select Finish");
+                    break;
+          }
      }
 
      private void Update()

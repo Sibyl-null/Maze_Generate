@@ -328,11 +328,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 629cf52cf8a5c4e46ad62d050f1809c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _xLen: 10
-  _yLen: 6
+  _xLen: 20
+  _yLen: 20
   _xStart: 2
-  _yStart: 3
+  _yStart: 0
   _pos: {fileID: 992632283}
+  _generateType: 1
 --- !u!4 &992632283
 Transform:
   m_ObjectHideFlags: 0
