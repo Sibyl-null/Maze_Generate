@@ -8,15 +8,28 @@ public class MazeAlgorithm
      static int[] dx = new[] { 1, -1, 0, 0 };
      static int[] dy = new[] { 0, 0, 1, -1 };
 
-     //检测周围是否有未访问点
-     private static bool CheckNeighbors(Cell[,] cells, ValueTuple<int, int> pos)
+     // 打通右边
+     private static void AcrossRight(Cell[,] res, int x, int y)
      {
-          for (int i = 0; i < 4; ++i)
-          {
-               if (!cells[pos.Item1 + dx[i], pos.Item2 + dy[i]].visited) return true;
-          }
+          Cell cell = res[x, y];
+          cell.east = true;
+          res[x, y] = cell;
 
-          return false;
+          cell = res[x, y + 1];
+          cell.west = true;
+          res[x, y + 1] = cell;
+     }
+     
+     // 打通下面
+     private static void AcrossDown(Cell[,] res, int x, int y)
+     {
+          Cell cell = res[x, y];
+          cell.south = true;
+          res[x, y] = cell;
+
+          cell = res[x+ 1, y];
+          cell.north = true;
+          res[x + 1, y] = cell;
      }
      
     public static Cell[,] StackGenerate(int xLen, int yLen, int xStart, int yStart)
@@ -170,6 +183,37 @@ public class MazeAlgorithm
               }
          }
          
+         return res;
+    }
+
+    public static Cell[,] BinaryTreeGenerate(int xLen, int yLen)
+    {
+         Cell[,] res = new Cell[xLen, yLen];
+
+         //从左上到右下
+         for (int j = 0; j < yLen; ++j)
+         {
+              for (int i = 0; i < xLen; ++i)
+              {
+                   if (j + 1 < yLen && i + 1 < xLen)
+                   {
+                        int idx = Random.Range(0, 2);
+                        if (idx == 0)
+                             AcrossDown(res, i ,j);
+                        else if (idx == 1)
+                             AcrossRight(res, i, j);
+                   }
+                   else if (j + 1 < yLen)
+                   {
+                        AcrossRight(res, i, j);
+                   }
+                   else if (i + 1 < xLen)
+                   {
+                        AcrossDown(res, i ,j);
+                   }
+              }
+         }
+
          return res;
     }
 }

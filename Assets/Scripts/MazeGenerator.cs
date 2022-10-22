@@ -3,7 +3,7 @@ using UnityEngine;
 
 public enum GenerateType
 {
-     Stack, HurtAndKill
+     Stack, HurtAndKill, BinaryTree
 }
 
 public class MazeGenerator : MonoBehaviour
@@ -15,7 +15,13 @@ public class MazeGenerator : MonoBehaviour
      [SerializeField] private GenerateType _generateType;
 
      private Cell[,] _cells;
-     
+
+     private void OnValidate()
+     {
+          _xStart = Mathf.Clamp(_xStart, 0, _xLen - 1);
+          _yStart = Mathf.Clamp(_yStart, 0, _yLen - 1);
+     }
+
      private void Start()
      {
           switch (_generateType)
@@ -25,6 +31,9 @@ public class MazeGenerator : MonoBehaviour
                     break;
                case GenerateType.HurtAndKill:
                     _cells = MazeAlgorithm.HurtAndKill(_xLen, _yLen, _xStart, _yStart);
+                    break;
+               case GenerateType.BinaryTree:
+                    _cells = MazeAlgorithm.BinaryTreeGenerate(_xLen, _yLen);
                     break;
                default:
                     Debug.LogWarning("Warn Select Finish");
